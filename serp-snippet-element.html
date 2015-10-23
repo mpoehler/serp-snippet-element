@@ -10,17 +10,17 @@
     </serp-snippet-element>
 
 @element serp-snippet-element
-@demo demo.html
-@hero hero.svg
+@demo demo/index.html
+
 -->
 
 <dom-module name="serp-snippet-element">
   <link rel="import" type="css" href="serp-snippet-element.css">
   <template>
-    <div id="title">{{titleShortend}}</div>
+    <div id="title">{{_titleShortend}}</div>
     <div id="wrapper">
-      <div id="url">{{urlShortend}}</div>
-      <div id="description">{{descriptionShortend}}</div>
+      <div id="url">{{_urlShortend}}</div>
+      <div id="description">{{_descriptionShortend}}</div>
     </div>
   </template>
   <script>
@@ -28,36 +28,41 @@
       is: 'serp-snippet-element',
 
       properties: {
+        /** The Url to be listed in the SERP, maybe shortend */
         url: String,
+        /** The description to show in the SERP, typically the meta description 
+            from the webpage, may be shortend */
         description: String,
+        /** The title to show in the SERP, typically the title
+            from the webpage, may be shortend */
         title: String,
-        urlShortend: {
+        _urlShortend: {
           type: String,
           /**
             * Google shows up to 53 characters of a page's url in its search results.
             * If a page title exceeds 53 characters, Google will show as many url as it can, and the rest are replaced with an ellipsis (...).
             */
-          computed: 'computeUrl(url, 53)'
+          computed: '_computeUrl(url, 53)'
         },
-        titleShortend: {
+        _titleShortend: {
           type: String,
           /**
            * Google shows up to 70 characters (including spaces) of a page's title in its search results.
            * If a page title exceeds 70 characters, Google will show as many whole words as it can, and the rest are replaced with an ellipsis (...).
            */
-          computed: 'computeText(title, 70)'
+          computed: '_computeText(title, 70)'
         },
-        descriptionShortend: {
+        _descriptionShortend: {
           type: String,
           /**
            * Google shows up to 156 characters (including spaces) of a page's meta description tag.
            * If a page's meta description tag exceeds 156 characters, Google will show as many whole words as it can, and the rest are replaced with an ellipsis (...).
            */
-          computed: 'computeText(description, 156)'
+          computed: '_computeText(description, 156)'
         }
       },
       
-      computeText: function(text, maxlength) {
+      _computeText: function(text, maxlength) {
         if (text.length<maxlength) {
           return text;
         } else {
@@ -70,7 +75,7 @@
           return text.substring(0,i) + ' ...';
         }
       },
-      computeUrl: function(url, maxlength) {
+      _computeUrl: function(url, maxlength) {
         var urlWithoutProtocol = (url.startsWith('http://') ? url.substring('http://'.length) : url);
         if (urlWithoutProtocol.length<maxlength) {
           return urlWithoutProtocol;
