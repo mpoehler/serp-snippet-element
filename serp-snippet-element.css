@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+#title {
+  color: rgb(26, 13, 171);
+  cursor: pointer;
+  display: inline;
+  font-family: arial, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  height: auto;
+  line-height: 21.6px;
+  list-style-type: decimal;
+  text-align: left;
+  text-decoration: none;
+  visibility: visible;
+  white-space: nowrap;
+  width: auto;
+}
+
+#url {
+  color: rgb(0, 102, 33);
+  display: block;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  height: auto;
+  line-height: 16px;
+  list-style-type: decimal;
+  text-align: left;
+  visibility: visible;
+  white-space: nowrap;
+  width: auto;
+}
+
+#description {
+  color: rgb(84, 84, 84);
+  display: inline;
+  font-family: arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  height: auto;
+  line-height: 18.2px;
+  list-style-type: decimal;
+  text-align: left;
+  visibility: visible;
+  width: auto;
+  word-wrap: break-word;
+}
+
+#wrapper {
+  color: rgb(84, 84, 84);
+  display: block;
+  font-family: arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  height: 89px;
+  line-height: 18px;
+  list-style-type: decimal;
+  max-width: 546px;
+  text-align: left;
+  visibility: visible;
+  width: 512px;
+}

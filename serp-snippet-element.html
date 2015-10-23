@@ -1,0 +1,84 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+##### Example
+
+    <serp-snippet-element
+      title="Preisvergleich für Air Optix Aqua Kontaktlinsen ab 18,18 € bis 33,16 €"
+      description="Wir bieten Ihnen einen umfassenden Preisvergleich zu Kontaktlinsen verschiedener Marken und Händler"
+      url="http://www.kontaktlinsen-preisvergleich.de/Ciba-Vision/Air-Optix-Aqua">
+    </serp-snippet-element>
+
+@element serp-snippet-element
+@demo demo.html
+@hero hero.svg
+-->
+
+<dom-module name="serp-snippet-element">
+  <link rel="import" type="css" href="serp-snippet-element.css">
+  <template>
+    <div id="title">{{titleShortend}}</div>
+    <div id="wrapper">
+      <div id="url">{{urlShortend}}</div>
+      <div id="description">{{descriptionShortend}}</div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'serp-snippet-element',
+
+      properties: {
+        url: String,
+        description: String,
+        title: String,
+        urlShortend: {
+          type: String,
+          /**
+            * Google shows up to 53 characters of a page's url in its search results.
+            * If a page title exceeds 53 characters, Google will show as many url as it can, and the rest are replaced with an ellipsis (...).
+            */
+          computed: 'computeUrl(url, 53)'
+        },
+        titleShortend: {
+          type: String,
+          /**
+           * Google shows up to 70 characters (including spaces) of a page's title in its search results.
+           * If a page title exceeds 70 characters, Google will show as many whole words as it can, and the rest are replaced with an ellipsis (...).
+           */
+          computed: 'computeText(title, 70)'
+        },
+        descriptionShortend: {
+          type: String,
+          /**
+           * Google shows up to 156 characters (including spaces) of a page's meta description tag.
+           * If a page's meta description tag exceeds 156 characters, Google will show as many whole words as it can, and the rest are replaced with an ellipsis (...).
+           */
+          computed: 'computeText(description, 156)'
+        }
+      },
+      
+      computeText: function(text, maxlength) {
+        if (text.length<maxlength) {
+          return text;
+        } else {
+          var i=text.length-1;
+          for (; i>0; i--) {
+            if (text.charAt(i) == ' ' && i<(maxlength-' ...'.length)) {
+              break;
+            }
+          }
+          return text.substring(0,i) + ' ...';
+        }
+      },
+      computeUrl: function(url, maxlength) {
+        var urlWithoutProtocol = (url.startsWith('http://') ? url.substring('http://'.length) : url);
+        if (urlWithoutProtocol.length<maxlength) {
+          return urlWithoutProtocol;
+        } else {
+          return urlWithoutProtocol.substring(0,maxlength-'...'.length) + '...';
+        }
+      }
+      
+    });
+  </script>
+</dom-module>
